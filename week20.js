@@ -303,7 +303,11 @@ document.querySelector('.b-15').addEventListener('click', makeFifteen);
 
 function makeSixteen(n, func) {
 	const resultSixteen = document.getElementById('result16');
-	//Ваш код
+	try {
+		func(n);
+	} catch (error) {
+		resultSixteen.innerText = error.name;
+	}
 }
 
 document.querySelector('.b-16').addEventListener('click', makeSixteen);
@@ -314,10 +318,14 @@ document.querySelector('.b-16').addEventListener('click', makeSixteen);
 
 function makeSeventeen(str, func) {
 	const resultSeventeen = document.getElementById('result17');
-	//Ваш код
+	try {
+		func(str)
+	}
+	catch (err) {
+		resultSeventeen.innerText = err.message;
+	}
 }
 
-// добавьте слушатель события
 document.querySelector('.b-17').addEventListener('click', makeSeventeen);
 
 //Задание 18
@@ -327,17 +335,18 @@ document.querySelector('.b-17').addEventListener('click', makeSeventeen);
 function makeEighteen() {
 	const resultEighteen = document.getElementById('result18');
 	const forWordFinally = document.getElementById('result18a');
-	//Блок try
-	//Некорректная операция деления для примера, может вызвать ошибку
-	if (true) {
-		throw new Error('Division by zero');
+	try {
+		if (true) {
+			const result = 12 / 0;
+			resultEighteen.textContent = result;
+			throw new Error('Division by zero');
+			}
+		} catch (error) {
+		console.error(error);
+		resultEighteen.textContent = '0'; //Вывод '0' при ошибке
+	} finally {
+		forWordFinally.textContent = 'finally'
 	}
-	const result = 12 / 0;
-	resultEighteen.textContent = result;
-	//Блок catch (error)
-	console.error(error); //Вывод ошибки в консоль
-	resultEighteen.textContent = '0'; //Вывод '0' при ошибке
-	//Блок finally
 }
 
 document.querySelector('.b-18').addEventListener('click', makeEighteen);
@@ -348,14 +357,16 @@ document.querySelector('.b-18').addEventListener('click', makeEighteen);
 
 function makeNineteen() {
 	const resultNineteen = document.getElementById('result19');
-	//Блок try
 	const arr = [1, 2, 3];
-	const sum = arr.reduce((acc, val) => acc + val, 0);
-	resultNineteen.textContent = sum;
-	//Блок catch (error)
-	console.error(error); //Вывод ошибки в консоль
-	//Ваш код
-	//Блок finally
+	try {
+		const sum = arr.reduce((acc, val) => acc + val, 0);
+		resultNineteen.textContent = sum;
+	} catch {
+		resultNineteen.textContent = 'Ошибка';
+		console.error(error); //Вывод ошибки в консоль
+	} finally {
+		document.getElementById('result19a').textContent = 'finally19'
+	}
 }
 
 document.querySelector('.b-19').addEventListener('click', makeNineteen);
@@ -372,10 +383,15 @@ function calculateValue() {
 }
 
 function makeTwenty() {
-	//Ваш код
+	try {
+		document.getElementById('result20').innerText = calculateValue();
+	} catch (error) {
+		document.getElementById('result20').textContent = 'Ошибка';
+	} finally {
+		document.getElementById('result20a').innerText = 'finally20'
+	}
 }
 
-// добавьте слушатель события
 document.querySelector('.b-20').addEventListener('click', makeTwenty);
 
 // Задание 21
@@ -390,10 +406,15 @@ function fetchData() {
 }
 
 function makeTwentyOne() {
-	//Ваш код
+	try {
+		document.getElementById('result21').innerText = fetchData();
+	} catch (error) {
+		document.getElementById('result21').innerText = 'Ошибка';
+	} finally {
+		document.getElementById('result21a').innerText = 'finally21';
+	}
 }
 
-// добавьте слушатель события
 document.querySelector('.b-21').addEventListener('click', makeTwentyOne);
 
 //Задание 22
@@ -403,13 +424,14 @@ const json = '{ некорректный JSON }';
 
 function makeTwentyTwo() {
 	const resultTwentyTwo = document.getElementById('result22');
-	//Блок try
-	let user = JSON.parse(json); //Возникает ошибка
-	console.log(user.name); //Не сработает
-	//Блок catch (e)
-	resultTwentyTwo.textContent = 'Извините, в данных ошибка, мы попробуем получить их ещё раз.';
-	console.log(e.name);
-	console.log(e.message);
+	try {
+		let user = JSON.parse(json); //Возникает ошибка
+		console.log(user.name); //Не сработает
+	} catch (e) {
+		resultTwentyTwo.textContent = 'Извините, в данных ошибка, мы попробуем получить их ещё раз.';
+		console.log(e.name);
+		console.log(e.message);
+	}
 }
 
 document.querySelector('.b-22').addEventListener('click', makeTwentyTwo);
@@ -422,10 +444,16 @@ const jsonTwentyThree = '{ некорректный JSON }';
 
 function makeTwentyThree() {
 	const resultTwentyThree = document.getElementById('result23');
-	//Ваш код
+	try {
+		let user = JSON.parse(jsonTwentyThree);
+		console.log(user.name);
+	} catch (e) {
+		resultTwentyThree.textContent = 'Извините, в данных ошибка, мы попробуем получить их ещё раз.';
+		console.log(e.name);
+		console.log(e.message);
+	}
 }
 
-// Добавьте слушатель события
 document.querySelector('.b-23').addEventListener('click', makeTwentyThree);
 
 //Задание 24
@@ -434,14 +462,17 @@ document.querySelector('.b-23').addEventListener('click', makeTwentyThree);
 
 function makeTwentyFour() {
 	const resultTwentyFour = document.getElementById('result24');
-	//Блок try
-	let divisor = 0;
-	if (divisor === 0) {
-		//Ваш код
+	try {
+		let divisor = 0;
+		if (divisor === 0) {
+			throw new Error ('На ноль делить нельзя');
+		}
+		let result = 24 / divisor;
+		resultTwentyFour.innerText = result;
+
+	} catch (error) {
+		resultTwentyFour.innerText = error.message;
 	}
-	let result = 24 / divisor;
-	return result;
-	//Блок catch (error)
 }
 
 document.querySelector('.b-24').addEventListener('click', makeTwentyFour);
@@ -452,13 +483,15 @@ document.querySelector('.b-24').addEventListener('click', makeTwentyFour);
 
 function makeTwentyFive() {
 	const resultTwentyFive = document.getElementById('result25');
-	//Блок try
-	const randomValue = Math.random();
-	if (randomValue <= 0.9) {
-		throw new Error('Искусственная ошибка');
+	try {
+		const randomValue = Math.random();
+		if (randomValue <= 0.9) {
+			throw new Error('Искусственная ошибка');
+		}
+		resultTwentyFive.textContent = 'Операция успешно выполнена';
+	} catch (error) {
+		resultTwentyFive.innerText = error.message;
 	}
-	resultTwentyFive.textContent = 'Операция успешно выполнена';
-	//Блок catch (error)
 }
 
 document.querySelector('.b-25').addEventListener('click', makeTwentyFive);
@@ -469,12 +502,16 @@ document.querySelector('.b-25').addEventListener('click', makeTwentyFive);
 
 function makeTwentySix() {
 	const resultTwentySix = document.getElementById('result26');
-	//Блок try
+
 	setTimeout(() => {
-		noSuchVariable; //Попытка обратиться к несуществующей переменной
+		try {
+			noSuchVariable; //Попытка обратиться к несуществующей переменной
+		} catch (error) {
+			resultTwentySix.innerText = `Ошибка поймана : ${error.message}`;
+		}
 	}, 1000);
-	//Блок catch (error)
-}
+} 
+
 
 document.querySelector('.b-26').addEventListener('click', makeTwentySix);
 
