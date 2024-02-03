@@ -512,7 +512,6 @@ function makeTwentySix() {
 	}, 1000);
 } 
 
-
 document.querySelector('.b-26').addEventListener('click', makeTwentySix);
 
 //Задание 27
@@ -531,18 +530,18 @@ function simulateAsyncOperation() {
 	});
 }
 
-//Добавить название функции и ключевое слово async
-//Подумайте, в каком месте нужно добавить await
-// resultTwentySeven.textContent = 'Ожидание...';
-// try {
-// 	const result = simulateAsyncOperation();
-// 	resultTwentySeven.textContent = 'Результат: ' + result;
-// } catch (error) {
-// 	resultTwentySeven.textContent = 'Произошла ошибка: ' + error.message;
-// 	console.error(error.name);
-// }
+async function makeTwentySeven () {
+	resultTwentySeven.textContent = 'Ожидание...';
+	try {
+		const result = await simulateAsyncOperation();
+		resultTwentySeven.textContent = 'Результат: ' + result;
+	} catch (error) {
+		resultTwentySeven.textContent = 'Произошла ошибка: ' + error.message;
+		console.error(error.name);
+	}
+}
 
-// document.querySelector('.b-27').addEventListener('click', makeTwentySeven);
+document.querySelector('.b-27').addEventListener('click', makeTwentySeven);
 
 //Задание 28
 //Создайте функцию makeTwentyEight, которая содержит код с использованием Promise.reject и setTimeout,
@@ -550,26 +549,26 @@ function simulateAsyncOperation() {
 
 function makeTwentyEight() {
 	const resultTwentyEight = document.getElementById('result28');
+	const resultTwentyEightA = document.getElementById('result28a');
 	resultTwentyEight.textContent = 'Ожидание...';
-	try {
-		Promise.reject('err')
-			.then((result) => {
-				resultTwentyEight.textContent = 'Успешное завершение: ' + result;
-			})
-			.catch((error) => {
-				resultTwentyEight.textContent = 'Ошибка в Promise.reject: ' + error;
-				console.error(error);
-			});
+	Promise.reject('err')
+		.then((result) => {
+			resultTwentyEight.textContent = 'Успешное завершение: ' + result;
+		})
+		.catch((error) => {
+			resultTwentyEight.textContent = 'Ошибка в Promise.reject: ' + error;
+			console.error(error);
+		});
 
-		//Код с setTimeout
 		setTimeout(() => {
-			throw Error('ошибка');
+			try {
+				throw Error('ошибка');
+			} catch (e) {
+				resultTwentyEightA.textContent = 'Ошибка на верхнем уровне: ' + e;
+				console.log('Ошибка на верхнем уровне:', e);
+			}			
 		}, 1000);
-	} catch (e) {
-		resultTwentyEight.textContent = 'Ошибка на верхнем уровне: ' + e;
-		console.log('Ошибка на верхнем уровне:', e);
 	}
-}
 
 document.querySelector('.b-28').addEventListener('click', makeTwentyEight);
 
