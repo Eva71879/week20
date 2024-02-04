@@ -578,12 +578,13 @@ document.querySelector('.b-28').addEventListener('click', makeTwentyEight);
 
 const resultTwentyNine = document.getElementById('result29');
 
-function handlePromise() {
-	//Блок try
-	Promise.reject('это точно ошибка');
-	//Блок catch (e)
-	resultTwentyNine.textContent = 'Ошибка перехвачена: ' + e;
-	console.log(e); //err
+async function handlePromise() {
+	try {
+		await Promise.reject('это точно ошибка');
+	} catch (e) {
+		resultTwentyNine.textContent = 'Ошибка перехвачена: ' + e;
+		console.log(e);
+	}
 }
 
 function makeTwentyNine() {
@@ -611,3 +612,5 @@ function makeThirty() {
 }
 
 document.querySelector('.b-30').addEventListener('click', makeThirty);
+
+//не упадет из-за бесконечного цикла. мне больше интересно как сделать такой unreachable code, который не закомментирован, но тем не менее не читается live server
