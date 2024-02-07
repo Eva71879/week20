@@ -56,12 +56,19 @@ document.querySelector('.button').onclick = function () {
     const selectedValue = document.getElementById('select').value;
     console.log(selectedValue);
 
-    if (selectedValue === '1') {
-        loadData('planets');
-    } else if (selectedValue === '2') {
-        loadData('vehicles');
-    } else if (selectedValue === '3') {
-        loadData('species');
+    switch (selectedValue) {
+        case '1':
+            loadData('planets');
+            break;
+        case '2':
+            loadData ('vehicles');
+            break;
+        case '3':
+            loadData('species');
+            break;
+        default:
+            console.error('Некорректное значение выбора');
+            break;
     }
 };
 
